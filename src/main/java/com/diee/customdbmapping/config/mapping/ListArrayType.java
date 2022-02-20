@@ -1,6 +1,5 @@
-package com.diee.customdbmapping.config;
+package com.diee.customdbmapping.config.mapping;
 
-import aj.org.objectweb.asm.Type;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
@@ -16,7 +15,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public class CustomListArrayType implements UserType {
+public class ListArrayType implements UserType {
 
     @Override
     public int[] sqlTypes() {
