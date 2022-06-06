@@ -4,6 +4,7 @@ import com.diee.customdbmapping.model.projection.AccountBasicInfo;
 import com.diee.customdbmapping.record.AccountInfo;
 import com.diee.customdbmapping.service.AccountService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,8 +22,7 @@ public class AccountsController {
     }
 
     @GetMapping(value = "/accounts/basic")
-    public List<AccountBasicInfo> getAccountBasics() {
-         return accountService.getAccountBasic();
+    public AccountBasicInfo getAccountBasics(@RequestParam("username") String username) {
+        return accountService.getAccountBasic(username);
     }
-
 }

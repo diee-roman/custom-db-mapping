@@ -1,4 +1,4 @@
-package com.diee.customdbmapping.config.mapping;
+package com.diee.customdbmapping.config.dbmapping;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
@@ -19,7 +19,7 @@ public class ListArrayType implements UserType {
 
     @Override
     public int[] sqlTypes() {
-        return new int[]{Types.ARRAY};
+        return new int[] {Types.ARRAY};
     }
 
     @Override
@@ -46,11 +46,9 @@ public class ListArrayType implements UserType {
         throws HibernateException, SQLException {
         Array array = rs.getArray(names[0]);
         if (array != null) {
-            if(array.getBaseType() == Types.INTEGER){
-                return asList((Integer[]) array.getArray());
-            } else if( array.getBaseType() == Types.VARCHAR)
-                return asList((String[]) array.getArray());
-
+            if (array.getBaseType() == Types.VARCHAR) {
+                return asList((String[])array.getArray());
+            }
         }
         return null;
     }
@@ -59,7 +57,7 @@ public class ListArrayType implements UserType {
     public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session)
         throws HibernateException, SQLException {
         if (value != null && st != null) {
-            Array array = session.connection().createArrayOf("text", (String[])value);
+            Array array = session.connection().createArrayOf("text", ((List)value).toArray());
             st.setArray(index, array);
         } else {
             st.setNull(index, sqlTypes()[0]);
@@ -68,8 +66,7 @@ public class ListArrayType implements UserType {
 
     @Override
     public Object deepCopy(Object value) throws HibernateException {
-        String[] a = (String[])value;
-        return Arrays.copyOf(a, a.length);
+        return value;
     }
 
     @Override
@@ -79,7 +76,7 @@ public class ListArrayType implements UserType {
 
     @Override
     public Serializable disassemble(Object value) throws HibernateException {
-        return (Serializable) value;
+        return (Serializable)value;
     }
 
     @Override
@@ -91,5 +88,4 @@ public class ListArrayType implements UserType {
     public Object replace(Object original, Object target, Object owner) throws HibernateException {
         return original;
     }
-
 }

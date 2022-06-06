@@ -1,10 +1,8 @@
 package com.diee.customdbmapping.model;
 
-import com.diee.customdbmapping.config.mapping.ListArrayType;
+import com.diee.customdbmapping.config.dbmapping.ListArrayType;
 import com.diee.customdbmapping.model.projection.AccountBasicInfo;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -21,14 +19,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "account")
-
 @TypeDef(
     name = "list-array",
-    typeClass = com.vladmihalcea.hibernate.type.array.ListArrayType.class
+    typeClass = ListArrayType.class
 )
 
 @NamedNativeQuery(name = "Account.getBasicInfo",
-    query = "SELECT a.username, a.email, a.roles FROM Account a",
+    query = "SELECT a.username, a.email, a.roles FROM Account a WHERE a.username = :username",
     resultSetMapping = "BasicInfoMapping")
 @SqlResultSetMapping(
     name = "BasicInfoMapping",
@@ -41,8 +38,6 @@ import java.util.List;
         }))
 
 @Data
-@Getter
-@Setter
 public class Account {
 
     @Id
@@ -50,6 +45,7 @@ public class Account {
 
     @Column(name = "username")
     private String username;
+
     @Column(name = "password")
     private String password;
 
