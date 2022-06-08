@@ -30,7 +30,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/accounts/basic",
+					"raw": "http://localhost:8080/accounts/basic?username=pepe1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -39,6 +39,12 @@
 					"path": [
 						"accounts",
 						"basic"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "pepe1"
+						}
 					]
 				}
 			},
